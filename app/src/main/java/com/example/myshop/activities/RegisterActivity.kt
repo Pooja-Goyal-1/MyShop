@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.CheckBox
 import com.example.myshop.R
+import com.example.myshop.firestore.FirestoreClass
+import com.example.myshop.models.User
 import com.example.myshop.utils.MSButton
 import com.example.myshop.utils.MSEditText
 import com.example.myshop.utils.MSTextViewBold
@@ -89,17 +91,19 @@ class RegisterActivity : BaseActivity() {
                 .addOnCompleteListener(
                     OnCompleteListener <AuthResult>{ task ->
 
-                        //hide progress bar
-                        hideProgressDialog()
-
                         //if registration is successful
                         if(task.isSuccessful){
                             //Firebase registered User
                             val firebaseUser: FirebaseUser = task.result!!.user!!
-                            showErrorSnackBar(
-                                "You are registered successfully. Your user id is ${firebaseUser.uid}",
-                                false
+
+                            val user = User(
+                                firebaseUser.uid,
+                                findViewById<MSEditText>(R.id.et_first_name).text.toString().trim { it <= ' '} ,
+                                findViewById<MSEditText>(R.id.et_last_name).text.toString().trim { it <= ' '},
+                                findViewById<MSEditText>(R.id.et_email).text.toString().trim { it <= ' '}
                             )
+
+                            FirestoreClass().registerUser(this@RegisterActivity, user)
 
                             //close the register screen and take to the login screen
                             FirebaseAuth.getInstance().signOut()
@@ -107,6 +111,8 @@ class RegisterActivity : BaseActivity() {
                         }
                         else
                         {
+                            //hide progressdialog
+                            hideProgressDialog()
                             // if user is not registered successfully then show error message.
                             showErrorSnackBar(task.exception!!.message.toString(), true)
                         }
@@ -115,5 +121,14 @@ class RegisterActivity : BaseActivity() {
         }
     }
 
+    fun userRegistrationSuccess() {
+        //hide the progress bar
+        hideProgressDialog()
 
+        showErrorSnackBar(
+            "You are registered successfully.",
+            false
+        )
+
+    }
 }

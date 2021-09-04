@@ -32,6 +32,13 @@
     <string name="forgot_password_title_description">Enter your username and email address we\'ll send you an email to reset your password.</string>
     <string name="btn_lbl_submit">Submit</string>
 
+    <string name="title_complete_profile">Profile</string>
+    <string name="et_hint_mobile_number">Mobile Number</string>
+    <string name="rb_lbl_male">Male</string>
+    <string name="rb_lbl_female">Female</string>
+    <string name="btn_lbl_save">Save</string>
+
+
 
 </resources>
 
