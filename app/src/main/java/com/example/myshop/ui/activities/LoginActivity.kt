@@ -1,9 +1,8 @@
-package com.example.myshop.activities
+package com.example.myshop.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import com.example.myshop.R
 import com.example.myshop.firestore.FirestoreClass
 import com.example.myshop.models.User
@@ -78,11 +77,6 @@ class LoginActivity : BaseActivity(){
         //hide the progress dialog
         hideProgressDialog()
 
-        //Print the user details in log
-        Log.i("First Name:", user.firstName)
-        Log.i("Last Name:", user.lastName)
-        Log.i("Email:", user.email)
-
         if(user.profileCompleted==0){
             // if the profile of user is incomplete then launch the userProfileActivity
             val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
@@ -91,7 +85,7 @@ class LoginActivity : BaseActivity(){
         }
         else{
             // if profile is completed , launch the main activity.
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
         }
         finish()
     }

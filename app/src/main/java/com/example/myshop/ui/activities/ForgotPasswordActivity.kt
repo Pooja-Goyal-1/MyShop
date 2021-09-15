@@ -1,4 +1,4 @@
-package com.example.myshop.activities
+package com.example.myshop.ui.activities
 
 import android.os.Bundle
 import com.example.myshop.R
